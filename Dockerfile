@@ -11,9 +11,8 @@ COPY . ./
 
 # Insert version using git tag and latest commit hash
 # Build Go Binary
-RUN git tag v1.0
 RUN set -ex; \
-    CGO_ENABLED=0 GOOS=linux go build -ldflags="-X main.Version=$(git describe --abbrev=0 --tags)-$(git rev-list -1 HEAD) -w -s" -o ./server ./cmd/go8/main.go;
+    CGO_ENABLED=0 GOOS=linux go build -ldflags="-X main.Version=ee0d78ffbd69e0aca094b71d2aca7d4b3ec91bd2e28cca040d29824f7c0888fe -w -s" -o ./server ./cmd/go8/main.go;
 
 FROM gcr.io/distroless/static-debian12:nonroot
 
