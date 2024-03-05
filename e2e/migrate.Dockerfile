@@ -1,4 +1,4 @@
-FROM golang:1.21 AS src_migrate
+FROM golang:1.22.0 AS src_migrate
 
 # Copy dependencies first to take advantage of Docker caching
 WORKDIR /go/src/app/
