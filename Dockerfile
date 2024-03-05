@@ -11,6 +11,7 @@ COPY . ./
 
 # Insert version using git tag and latest commit hash
 # Build Go Binary
+COPY .git .git
 RUN set -ex; \
     CGO_ENABLED=0 GOOS=linux go build -ldflags="-X main.Version=$(git describe --abbrev=0 --tags)-$(git rev-list -1 HEAD) -w -s" -o ./server ./cmd/go8/main.go;
 
