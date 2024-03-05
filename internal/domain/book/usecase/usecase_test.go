@@ -149,8 +149,9 @@ func TestBookUseCase_List(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			bookRepo := tt.fields.bookRepo
 			u := &BookUseCase{
-				bookRepo: &tt.fields.bookRepo,
+				bookRepo: &bookRepo,
 			}
 			got, err := u.List(tt.args.ctx, tt.args.f)
 			assert.Equal(t, tt.wantErr, err)

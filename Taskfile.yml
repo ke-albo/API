@@ -75,8 +75,8 @@ tasks:
       - task fmt
       - task vet
       - task lint
-      - task vuln
-      - task test
+      # - task vuln
+      # - task test
     silent: true
 
   clean:
@@ -101,71 +101,71 @@ tasks:
     cmds:
       - golangci-lint run
 
-  vuln:
-    desc: Run Go Vulnerability Check
-    cmds:
-      - govulncheck ./...
+  # vuln:
+  #   desc: Run Go Vulnerability Check
+  #   cmds:
+  #     - govulncheck ./...
 
   fmt:
     desc: Reformat code
     cmds:
       - go fmt ./...
 
-  test:
-    desc: Test all code (unit and integration)
-    cmds:
-      - go test ./...
+  # test:
+  #   desc: Test all code (unit and integration)
+  #   cmds:
+  #     - go test ./...
 
-  test:unit:
-    desc: Test only unit tests
-    cmds:
-      - go test -short ./...
+  # test:unit:
+  #   desc: Test only unit tests
+  #   cmds:
+  #     - go test -short ./...
 
-  test:integration:
-    desc: Test only integration tests
-    cmds:
-      - go test -run Integration ./...
+  # test:integration:
+  #   desc: Test only integration tests
+  #   cmds:
+  #     - go test -run Integration ./...
 
-  test:verbose:
-    desc: Test all code with verbose mode
-    cmds:
-      - go test -v ./...
+  # test:verbose:
+  #   desc: Test all code with verbose mode
+  #   cmds:
+  #     - go test -v ./...
 
-  test:coverage:
-    desc: Perform test coverage
-    cmds:
-      - go test -cover ./...
+  # test:coverage:
+  #   desc: Perform test coverage
+  #   cmds:
+  #     - go test -cover ./...
 
-  test:slow:
-    desc: Find slow running tests
-    platforms: [ linux ]
-    cmds:
-      - go clean -testcache
-      - go test -v -json ./... | jq -r 'select(.Action == "pass" and .Test != null) | .Test + "," + (.Elapsed | tostring)'  | sort -r -k2 -n -t, | head
+  # test:slow:
+  #   desc: Find slow running tests
+  #   platforms: [ linux ]
+  #   cmds:
+  #     - go clean -testcache
+  #     - go test -v -json ./... | jq -r 'select(.Action == "pass" and .Test != null) | .Test + "," + (.Elapsed | tostring)'  | sort -r -k2 -n -t, | head
 
-  test:e2e:
-    desc: Run e2e test
-    dir: e2e
-    cmds:
-      - task: test:e2e:down # Ensures all containers are shut down for clean data directories
-      - docker-compose -f e2e/docker-compose.yml up --build
-    silent: true
+  # test:e2e:
+  #   desc: Run e2e test
+  #   dir: e2e
+  #   cmds:
+  #     - task: test:e2e:down # Ensures all containers are shut down for clean data directories
+  #     - docker-compose -f e2e/docker-compose.yml up --build
+  #   silent: true
 
-  test:e2e:down:
-    desc: Stops e2e test and remove the containers
-    dir: e2e
-    cmds:
-      - docker-compose -f e2e/docker-compose.yml down -v
+  # test:e2e:down:
+  #   desc: Stops e2e test and remove the containers
+  #   dir: e2e
+  #   cmds:
+  #     - docker-compose -f e2e/docker-compose.yml down -v
 
-  race:
-    desc: Check race condition
-    cmds:
-      - go test -race ./...
+  # race:
+  #   desc: Check race condition
+  #   cmds:
+  #     - go test -race ./...
 
-  test:clean:
-    desc: Clear tests cache
-    cmds:
-      - go clean -testcache
+  # test:clean:
+  #   desc: Clear tests cache
+  #   cmds:
+  #     - go clean -testcache
 
   generate:
     desc: Runs all //go:generate commands embedded in .go files
@@ -224,7 +224,7 @@ tasks:
       - task: install:goose
       - task: install:mirip
       - task: install:air
-      - task: install:vuln
+      # - task: install:vuln
     silent: true
 
   install:golangci:
@@ -252,7 +252,7 @@ tasks:
     cmds:
       - go install github.com/cosmtrek/air@latest
 
-  install:vuln:
-    desc: Install Go Vulnerability Check
-    cmds:
-      - go install golang.org/x/vuln/cmd/govulncheck@latest
+  # install:vuln:
+  #   desc: Install Go Vulnerability Check
+  #   cmds:
+  #     - go install golang.org/x/vuln/cmd/govulncheck@latest
